@@ -1,7 +1,6 @@
 #!/bin/bash
 # modified from https://github.com/deis/deis/blob/master/controller/scheduler/fleetctl.
 set -e
-set -x
 
 SSH_OPTIONS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR"
 [[ $FLEETW_KEY ]] && SSH_OPTIONS="-i $FLEETW_KEY $SSH_OPTIONS"
