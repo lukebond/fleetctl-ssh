@@ -130,7 +130,7 @@ FleetAPI.prototype.start = function (unit, options) {
       ufOptions.unitFile = options.unitFile;
     }
     if (options.unitFileData) {
-      ufOptions.unitFileData = options.unitFileData0;
+      ufOptions.unitFileData = options.unitFileData;
     }
   }
   args.push(unit);
@@ -176,7 +176,7 @@ FleetAPI.prototype.submit = function (unit, options) {
       ufOptions.unitFile = options.unitFile;
     }
     if (options.unitFileData) {
-      ufOptions.unitFileData = options.unitFileData0;
+      ufOptions.unitFileData = options.unitFileData;
     }
   }
   args.push(unit);
