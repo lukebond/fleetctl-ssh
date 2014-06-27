@@ -1,10 +1,10 @@
 {
-  "name": "fleetrc",
+  "name": "fleetctl-ssh",
   "version": "0.0.0",
-  "description": "A fleetctl work-alike Node.js module that that runs remotely over SSH, allowing you to use it from inside a Docker container. Inspired by @opendeis' scheduler.",
+  "description": "A Node.js workalike module for CoreOS' fleetctl that that runs remotely over SSH, allowing you to use it from inside a Docker container. Inspired by @opendeis' scheduler.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukebond/fleet-api"
+    "url": "https://github.com/lukebond/fleetctl-ssh"
   },
   "main": "index.js",
   "scripts": {
@@ -19,8 +19,5 @@
     "ssh"
   ],
   "author": "Luke Bond <luke.n.bond@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "ssh-exec": "^0.3.2"
-  }
+  "license": "MIT"
 }
