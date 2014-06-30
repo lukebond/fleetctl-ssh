@@ -8,10 +8,6 @@ All commands in fleetctrl 0.5.0 are implemented with the exception of 'ssh', 've
 
 All commands return a Node.js [ChildProcess](http://nodejs.org/api/child_process.html) object, so you can easily pipe the results somewhere.
 
-## Status
-
-First draft, untested, possibly broken!
-
 ## Usage
 
 To run against a CoreOS Vagrant cluster on your local machine:

@@ -20,10 +20,9 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options) {
   }
   args = args || [];
   args.unshift(command);
-  var env = {
-    PATH: '/usr/local/bin:/usr/bin:/bin' + path.resolve(path.join('.', 'bin')),
-    FLEETW_HOST: this.host
-  };
+  var env = JSON.parse(JSON.stringify(process.env));
+  env.PATH = '/usr/local/bin:/usr/bin:/bin' + path.resolve(path.join('.', 'bin'));
+  env.FLEETW_HOST = this.host;
   if (this.config.key) {
     env.FLEETW_KEY = this.config.key;
   }
@@ -67,10 +66,10 @@ FleetAPI.prototype.journal = function (unit, options) {
   var terms = [];
   if (options) {
     if (options.follow) {
-      terms.push('' + options.follow);
+      terms.push('--follow=' + options.follow);
     }
     if (options.lines) {
-      terms.push('' + options.lines);
+      terms.push('--lines=' + options.lines);
     }
   }
   terms.push(unit);
@@ -134,6 +133,7 @@ FleetAPI.prototype.start = function (unit, options) {
     }
   }
   args.push(unit);
+  console.log(args, ufOptions);
   return this._ssh_fleetctl('start', args, ufOptions);
 };
 
