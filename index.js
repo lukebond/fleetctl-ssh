@@ -8,6 +8,7 @@ var FleetAPI = function (host, config) {
   }
   this.host = host;
   this.config = config || {};
+  this.binPath = path.join(__dirname, 'bin', 'fleetctl.sh')
 };
 
 function getUnitFilename(unit) {
@@ -40,7 +41,7 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options) {
       }
     }
   }
-  return spawn('bin/fleetctl.sh', args, {env: env});
+  return spawn(this.binPath, args, {env: env});
 }
 
 FleetAPI.prototype.cat = function (unit) {
@@ -133,7 +134,6 @@ FleetAPI.prototype.start = function (unit, options) {
     }
   }
   args.push(unit);
-  console.log(args, ufOptions);
   return this._ssh_fleetctl('start', args, ufOptions);
 };
 
