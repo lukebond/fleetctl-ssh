@@ -50,8 +50,11 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
       }
     }
   }
+  if (this.config.debug) {
+    env.DEBUG = true;
+  }
   return execFile(this.binPath, args, {env: env}, cb);
-}
+};
 
 FleetAPI.prototype.cat = function (unit, cb) {
   return this._ssh_fleetctl('cat', unit, cb);

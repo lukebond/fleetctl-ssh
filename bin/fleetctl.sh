@@ -7,6 +7,7 @@ OPTIONS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel
 
 # set debug if provided as an envvar
 [[ $DEBUG ]] && set -x
+[[ $DEBUG ]] && echo $PATH
 
 # if fleet unit is defined, scp it to the remote host
 if [[ $FLEETW_UNIT && ($FLEETW_UNIT_DATA || $FLEETW_UNIT_FILE) ]]; then
