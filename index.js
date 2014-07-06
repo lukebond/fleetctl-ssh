@@ -31,7 +31,7 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
   args = args || [];
   args.unshift(command);
   var env = JSON.parse(JSON.stringify(process.env));
-  env.PATH = '/usr/local/bin:/usr/bin:/bin' + path.resolve(path.join('.', 'bin'));
+  env.PATH = '/usr/local/bin:/usr/bin:/bin:' + path.resolve(path.join('.', 'bin'));
   env.FLEETW_HOST = this.host;
   if (this.config.key) {
     env.FLEETW_KEY = this.config.key;
