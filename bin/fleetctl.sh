@@ -9,7 +9,11 @@ OPTIONS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel
 [[ $DEBUG ]] && set -x
 [[ $DEBUG ]] && echo $PATH
 
-# if fleet unit is defined, scp it to the remote host
+# run the fleetctl command remotely
+SSH_OPTIONS="-A $OPTIONS"
+[[ $FLEETW_PORT ]] && SSH_OPTIONS="-p $FLEETW_PORT $SSH_OPTIONS"
+
+# if fleet unit is defined, cp it to the remote host before execting fleetctl cmd
 if [[ $FLEETW_UNIT && ($FLEETW_UNIT_DATA || $FLEETW_UNIT_FILE) ]]; then
   if [[ $FLEETW_UNIT_DATA ]]; then
     unitfile=$(mktemp /tmp/fleetrc.XXXX)
@@ -17,12 +21,10 @@ if [[ $FLEETW_UNIT && ($FLEETW_UNIT_DATA || $FLEETW_UNIT_FILE) ]]; then
   else
     unitfile=$FLEETW_UNIT_FILE
   fi
+
   SCP_OPTIONS=$OPTIONS
   [[ $FLEETW_PORT ]] && SCP_OPTIONS="-P $FLEETW_PORT $SCP_OPTIONS"
-  scp $SCP_OPTIONS $unitfile core@$FLEETW_HOST:$FLEETW_UNIT
+  ssh $SSH_OPTIONS core@$FLEETW_HOST "cat - > $FLEETW_UNIT ; fleetctl $@ $FLEETW_UNIT" < $unitfile
+else
+  ssh $SSH_OPTIONS core@$FLEETW_HOST fleetctl $@
 fi
-
-# run the fleetctl command remotely
-SSH_OPTIONS="-A $OPTIONS"
-[[ $FLEETW_PORT ]] && SSH_OPTIONS="-p $FLEETW_PORT $SSH_OPTIONS"
-ssh $SSH_OPTIONS core@$FLEETW_HOST fleetctl $@
