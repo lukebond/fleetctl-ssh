@@ -1,5 +1,6 @@
-var fs = require('fs'),
-    path = require('path'),
+'use strict';
+
+var path = require('path'),
     execFile = require('child_process').execFile;
 
 var FleetAPI = function (host, config) {
@@ -8,7 +9,7 @@ var FleetAPI = function (host, config) {
   }
   this.host = host;
   this.config = config || {};
-  this.binPath = path.join(__dirname, 'bin', 'fleetctl.sh')
+  this.binPath = path.join(__dirname, 'bin', 'fleetctl.sh');
 };
 
 function getUnitFilename(unit) {
@@ -25,7 +26,7 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
     cb = options;
     options = null;
   }
-  if (typeof args == 'string') {
+  if (typeof args === 'string') {
     args = [args];
   }
   args = args || [];
@@ -39,7 +40,7 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
   if (this.config.port) {
     env.FLEETW_PORT = this.config.port;
   }
-  if (options && typeof options == 'object') {
+  if (options && typeof options === 'object') {
     if (options.unit) {
       env.FLEETW_UNIT = options.unit;
       if (options.unitFileData) {
@@ -65,12 +66,12 @@ FleetAPI.prototype.debugInfo = function (cb) {
 };
 
 FleetAPI.prototype.destroy = function () {
-  var cb = undefined;
+  var cb;
   if (typeof arguments[arguments.length - 1] === 'function') {
     cb = Array.prototype.pop.call(arguments);
   }
-  var units = Array.prototype.slice.call(arguments)
-  if (units.length == 0) {
+  var units = Array.prototype.slice.call(arguments);
+  if (units.length === 0) {
     throw new Error('Expected one or more unit names');
   }
   return this._ssh_fleetctl('destroy', units, cb);
@@ -158,7 +159,7 @@ FleetAPI.prototype.status = function (unit, cb) {
 };
 
 FleetAPI.prototype.stop = function (units, options, cb) {
-  if (typeof units == 'string') {
+  if (typeof units === 'string') {
     units = [units];
   }
   var args = [];
@@ -177,9 +178,8 @@ FleetAPI.prototype.stop = function (units, options, cb) {
 };
 
 FleetAPI.prototype.submit = function (unit, options, cb) {
-  if (typeof units == 'string') {
-    units = [units];
-  }
+  // XXX in fixing an undef error here i realise all these funcs
+  //     expect only 1 unit, contrary to the README
   var args = [];
   var ufOptions = {
     unit: path.basename(unit)
@@ -200,7 +200,7 @@ FleetAPI.prototype.submit = function (unit, options, cb) {
 };
 
 FleetAPI.prototype.unload = function (units, options, cb) {
-  if (typeof units == 'string') {
+  if (typeof units === 'string') {
     units = [units];
   }
   var args = [];
