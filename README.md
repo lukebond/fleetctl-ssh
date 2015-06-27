@@ -23,6 +23,9 @@ var fleet = new FleetAPI('127.0.0.1', {
 fleet.cat('my-service').stdout.pipe(process.stdout);
 ```
 
+`fleetctl-ssh` now supports the `debug` module. To get some debug output set
+the envvar `DEBUG` to `fleetctl` when you run your program that uses this module.
+
 ## API
 
 **.cat(unitName)**  

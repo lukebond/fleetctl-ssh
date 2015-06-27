@@ -19,5 +19,8 @@
     "ssh"
   ],
   "author": "Luke Bond <luke.n.bond@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
 }

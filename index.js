@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path'),
+    debug = require('debug')('fleetctl'),
     execFile = require('child_process').execFile;
 
 var FleetAPI = function (host, config) {
@@ -10,6 +11,9 @@ var FleetAPI = function (host, config) {
   this.host = host;
   this.config = config || {};
   this.binPath = path.join(__dirname, 'bin', 'fleetctl.sh');
+  debug('host', this.host);
+  debug('config', this.config);
+  debug('binPath', this.binPath);
 };
 
 function getUnitFilename(unit) {
@@ -54,6 +58,8 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
   if (this.config.debug) {
     env.DEBUG = true;
   }
+  debug('args', args);
+  debug('env', env);
   return execFile(this.binPath, args, {env: env}, cb);
 };
 
