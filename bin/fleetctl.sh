@@ -16,7 +16,7 @@ SSH_OPTIONS="-A $OPTIONS"
 # if fleet unit is defined, cp it to the remote host before execting fleetctl cmd
 if [[ $FLEETW_UNIT && ($FLEETW_UNIT_DATA || $FLEETW_UNIT_FILE) ]]; then
   if [[ $FLEETW_UNIT_DATA ]]; then
-    unitfile=$(mktemp /tmp/fleetrc.XXXX)
+    unitfile=$(mktemp /tmp/fleetrc.XXXXXX)
     echo $FLEETW_UNIT_DATA | base64 -d > $unitfile
   else
     unitfile=$FLEETW_UNIT_FILE
