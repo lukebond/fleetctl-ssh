@@ -24,7 +24,7 @@ if [[ $FLEETW_UNIT && ($FLEETW_UNIT_DATA || $FLEETW_UNIT_FILE) ]]; then
 
   SCP_OPTIONS=$OPTIONS
   [[ $FLEETW_PORT ]] && SCP_OPTIONS="-P $FLEETW_PORT $SCP_OPTIONS"
-  ssh $SSH_OPTIONS core@$FLEETW_HOST "cat - > $FLEETW_UNIT ; fleetctl $@ $FLEETW_UNIT" < $unitfile
+  2>&1 ssh $SSH_OPTIONS core@$FLEETW_HOST "2>&1 cat - > $FLEETW_UNIT ; fleetctl $@ $FLEETW_UNIT" < $unitfile
 else
-  ssh $SSH_OPTIONS core@$FLEETW_HOST fleetctl $@
+  2>&1 ssh $SSH_OPTIONS core@$FLEETW_HOST fleetctl $@
 fi

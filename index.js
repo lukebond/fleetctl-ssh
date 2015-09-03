@@ -50,8 +50,8 @@ FleetAPI.prototype._ssh_fleetctl = function (command, args, options, cb) {
       if (options.unitFileData) {
         env.FLEETW_UNIT_DATA = options.unitFileData;
       }
-      else {
-        env.FLEETW_UNIT_FILE = options.unitFile || getUnitFilename(options.unit);
+      else if (options.unitFile) {
+        env.FLEETW_UNIT_FILE = options.unitFile;
       }
     }
   }
